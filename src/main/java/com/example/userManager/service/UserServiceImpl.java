@@ -5,6 +5,8 @@ import com.example.userManager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl implements UserService{
     private final UserRepository repository;
@@ -26,10 +28,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User save(User user) {
+        user.setCreated(new Date());
         return repository.save(user);
     }
 
     @Override
     public void delete(int id) {
+        repository.deleteById(id);
     }
 }

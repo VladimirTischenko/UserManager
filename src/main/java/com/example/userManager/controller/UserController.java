@@ -16,12 +16,12 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping(path="/all")
+    @GetMapping("/all")
     public Iterable<User> getAll() {
         return service.getAll();
     }
 
-    @GetMapping(path="/{id}")
+    @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         return service.get(id);
     }
@@ -29,5 +29,10 @@ public class UserController {
     @PostMapping()
     public User addNew(@RequestBody User user) {
         return service.save(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        service.delete(id);
     }
 }
