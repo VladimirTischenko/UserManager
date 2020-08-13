@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Autowired
@@ -17,8 +17,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Iterable<User> getAll() {
-        return repository.findAll();
+    public Iterable<User> getAll(String firstName, String lastName) {
+        if (firstName == null) {
+            if (lastName == null) {
+                return repository.findAll();
+            } else {
+                return repository.findByLastName(lastName);
+            }
+        } else if (lastName == null) {
+            return repository.findByFirstName(firstName);
+        } else {
+            return repository.findByFirstNameAndLastName(firstName, lastName);
+        }
     }
 
     @Override

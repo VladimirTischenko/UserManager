@@ -17,8 +17,9 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public Iterable<User> getAll() {
-        return service.getAll();
+    public Iterable<User> getAll(@RequestParam(value = "firstName", required = false) String firstName,
+                                 @RequestParam(value = "lastName", required = false) String lastName) {
+        return service.getAll(firstName, lastName);
     }
 
     @GetMapping("/{id}")

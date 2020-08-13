@@ -3,7 +3,7 @@ package com.example.userManager.service;
 import com.example.userManager.dao.User;
 
 public interface UserService {
-    Iterable<User> getAll();
+    Iterable<User> getAll(String firstName, String lastName);
     User get(int id);
     User save(User user);
     User update(int id, User user);
