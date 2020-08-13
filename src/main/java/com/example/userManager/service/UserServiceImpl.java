@@ -33,6 +33,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User update(int id, User updatedUser) {
+        User userFromDb = repository.findById(id);
+        userFromDb.setFirstName(updatedUser.getFirstName());
+        userFromDb.setLastName(updatedUser.getLastName());
+        userFromDb.setPassword(updatedUser.getPassword());
+        userFromDb.setActive(updatedUser.isActive());
+        userFromDb.setUpdated(new Date());
+        return repository.save(userFromDb);
+    }
+
+    @Override
     public void delete(int id) {
         repository.deleteById(id);
     }
