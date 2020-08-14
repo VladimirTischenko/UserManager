@@ -2,6 +2,7 @@ package com.example.userManager.service;
 
 import com.example.userManager.dao.User;
 import com.example.userManager.repository.UserRepository;
+import com.example.userManager.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         user.setCreated(new Date());
+        user.setPassword(PasswordUtil.crypt(user.getPassword()));
         return repository.save(user);
     }
 
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
         User userFromDb = repository.findById(id);
         userFromDb.setFirstName(updatedUser.getFirstName());
         userFromDb.setLastName(updatedUser.getLastName());
-        userFromDb.setPassword(updatedUser.getPassword());
+        userFromDb.setPassword(PasswordUtil.crypt(updatedUser.getPassword()));
         userFromDb.setActive(updatedUser.isActive());
         userFromDb.setUpdated(new Date());
         return repository.save(userFromDb);
