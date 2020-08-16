@@ -2,6 +2,7 @@ package com.example.userManager.controller;
 
 import com.example.userManager.dao.User;
 import com.example.userManager.service.UserService;
+import com.example.userManager.to.UserTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,23 +18,23 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public Iterable<User> getAll(@RequestParam(value = "firstName", required = false) String firstName,
+    public Iterable<UserTo> getAll(@RequestParam(value = "firstName", required = false) String firstName,
                                  @RequestParam(value = "lastName", required = false) String lastName) {
         return service.getAll(firstName, lastName);
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable int id) {
+    public UserTo get(@PathVariable int id) {
         return service.get(id);
     }
 
     @PostMapping()
-    public User addNew(@RequestBody User user) {
+    public UserTo addNew(@RequestBody User user) {
         return service.save(user);
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable int id, @RequestBody User user) {
+    public UserTo update(@PathVariable int id, @RequestBody User user) {
         return service.update(id, user);
     }
 
