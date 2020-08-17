@@ -4,7 +4,11 @@ import com.example.userManager.dao.User;
 import com.example.userManager.service.UserService;
 import com.example.userManager.to.UserTo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(UserController.REST_URL)
@@ -29,8 +33,18 @@ public class UserController {
     }
 
     @PostMapping()
-    public UserTo addNew(@RequestBody User user) {
-        return service.save(user);
+    public ResponseEntity<Object> create(@RequestBody User user) {
+        Integer id = user.getId();
+        if (id != null) {
+            return ResponseEntity.badRequest().body("id must be new (id = " + id + ")");
+        }
+
+        UserTo userTo = service.save(user);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}").buildAndExpand(userTo.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(userTo);
     }
 
     @PutMapping("/{id}")
