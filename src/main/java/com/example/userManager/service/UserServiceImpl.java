@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserTo save(User user) {
-        user.setCreated(new Date());
+        user.setCreated(LocalDateTime.now());
         user.setPassword(PasswordUtil.crypt(user.getPassword()));
         repository.save(user);
         return UserUtil.convertToTo(user);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         userFromDb.setLastName(updatedUser.getLastName());
         userFromDb.setPassword(PasswordUtil.crypt(updatedUser.getPassword()));
         userFromDb.setActive(updatedUser.isActive());
-        userFromDb.setUpdated(new Date());
+        userFromDb.setUpdated(LocalDateTime.now());
 
         repository.save(userFromDb);
         return UserUtil.convertToTo(userFromDb);

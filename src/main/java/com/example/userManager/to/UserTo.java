@@ -3,7 +3,7 @@ package com.example.userManager.to;
 import com.example.userManager.dao.User;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class UserTo {
@@ -11,8 +11,8 @@ public class UserTo {
     private String firstName;
     private String lastName;
     private boolean active;
-    private Date created;
-    private Date updated;
+    private LocalDateTime created;
+    private LocalDateTime updated;
 
     public UserTo(User user) {
         id = user.getId();

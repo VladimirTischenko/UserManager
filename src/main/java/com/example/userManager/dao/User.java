@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -19,6 +19,6 @@ public class User {
     private String lastName;
     private String password;
     private boolean active;
-    private Date created;
-    private Date updated;
+    private LocalDateTime created;
+    private LocalDateTime updated;
 }
