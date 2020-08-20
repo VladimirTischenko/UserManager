@@ -34,17 +34,10 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@Valid @RequestBody User user) {
-        Integer id = user.getId();
-        if (id != null) {
-            return ResponseEntity.badRequest().body("id must be new (id = " + id + ")");
-        }
-
+    public ResponseEntity<UserTo> create(@Valid @RequestBody User user) {
         UserTo userTo = service.save(user);
-
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}").buildAndExpand(userTo.getId()).toUri();
-
         return ResponseEntity.created(uri).body(userTo);
     }
 

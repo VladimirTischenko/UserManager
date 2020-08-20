@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     public UserTo save(User user) {
         user.setCreated(LocalDateTime.now());
         user.setPassword(PasswordUtil.crypt(user.getPassword()));
-        repository.save(user);
+        user = repository.save(user);
         return UserUtil.convertToTo(user);
     }
 

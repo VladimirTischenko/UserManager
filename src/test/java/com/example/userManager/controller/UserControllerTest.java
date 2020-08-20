@@ -149,16 +149,6 @@ class UserControllerTest {
     }
 
     @Test
-    public void testInvalidCreateWithId() throws Exception {
-        User user = getNew();
-        user.setId(USER_TO_10_ID);
-        this.mockMvc.perform(post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(getJson(user)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void testInvalidCreateByEmptyFirstName() throws Exception {
         User user = getNew();
         user.setFirstName(" ");
