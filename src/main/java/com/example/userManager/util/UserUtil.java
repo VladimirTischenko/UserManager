@@ -1,21 +1,21 @@
 package com.example.userManager.util;
 
 import com.example.userManager.dao.User;
-import com.example.userManager.to.UserTo;
+import com.example.userManager.to.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserUtil {
-    public static UserTo convertToTo(User user) {
-        return new UserTo(user);
+    public static UserDTO convertToTo(User user) {
+        return new UserDTO(user);
     }
 
-    public static Iterable<UserTo> convertCollectionToTo(Iterable<User> users) {
-        List<UserTo> userTos = new ArrayList<>();
+    public static Iterable<UserDTO> convertCollectionToTo(Iterable<User> users) {
+        List<UserDTO> userDTOs = new ArrayList<>();
         for (User user : users) {
-            userTos.add(convertToTo(user));
+            userDTOs.add(convertToTo(user));
         }
-        return userTos;
+        return userDTOs;
     }
 }

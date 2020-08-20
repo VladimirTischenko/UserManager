@@ -2,7 +2,7 @@ package com.example.userManager.service;
 
 import com.example.userManager.dao.User;
 import com.example.userManager.repository.UserRepository;
-import com.example.userManager.to.UserTo;
+import com.example.userManager.to.UserDTO;
 import com.example.userManager.util.PasswordUtil;
 import com.example.userManager.util.UserUtil;
 import com.example.userManager.util.exception.UserNotFoundException;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Iterable<UserTo> getAll(String firstName, String lastName) {
+    public Iterable<UserDTO> getAll(String firstName, String lastName) {
         Iterable<User> users;
 
         if (firstName == null) {
@@ -42,13 +42,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserTo get(int id) {
+    public UserDTO get(int id) {
         User user = findById(id);
         return UserUtil.convertToTo(user);
     }
 
     @Override
-    public UserTo save(User user) {
+    public UserDTO save(User user) {
         user.setCreated(LocalDateTime.now());
         user.setPassword(PasswordUtil.crypt(user.getPassword()));
         user = repository.save(user);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserTo update(int id, User updatedUser) {
+    public UserDTO update(int id, User updatedUser) {
         User userFromDb = findById(id);
 
         userFromDb.setFirstName(updatedUser.getFirstName());

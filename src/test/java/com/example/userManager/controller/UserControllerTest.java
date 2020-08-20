@@ -2,7 +2,7 @@ package com.example.userManager.controller;
 
 import com.example.userManager.dao.User;
 import com.example.userManager.service.UserService;
-import com.example.userManager.to.UserTo;
+import com.example.userManager.to.UserDTO;
 import com.example.userManager.util.UserUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -68,8 +68,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        UserTo userTo = getToFromResult(result);
-        assertEquals(USER_TO_1, userTo);
+        UserDTO userDTO = getToFromResult(result);
+        assertEquals(USER_TO_1, userDTO);
     }
 
     @Test
@@ -86,8 +86,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        List<UserTo> userTos = getListFromResult(result);
-        assertIterableEquals(USER_TOS, userTos);
+        List<UserDTO> userDTOs = getListFromResult(result);
+        assertIterableEquals(USER_TOS, userDTOs);
     }
 
     @Test
@@ -98,8 +98,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        List<UserTo> userTos = getListFromResult(result);
-        assertIterableEquals(getUserTosByFirstName(FIRST_NAME), userTos);
+        List<UserDTO> userDTOs = getListFromResult(result);
+        assertIterableEquals(getUserTosByFirstName(FIRST_NAME), userDTOs);
     }
 
     @Test
@@ -110,8 +110,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        List<UserTo> userTos = getListFromResult(result);
-        assertIterableEquals(getUserTosByLastName(LAST_NAME), userTos);
+        List<UserDTO> userDTOs = getListFromResult(result);
+        assertIterableEquals(getUserTosByLastName(LAST_NAME), userDTOs);
     }
 
     @Test
@@ -123,8 +123,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        List<UserTo> userTos = getListFromResult(result);
-        assertIterableEquals(getUserTosByFirstNameAndLastName(FIRST_NAME, LAST_NAME), userTos);
+        List<UserDTO> userDTOs = getListFromResult(result);
+        assertIterableEquals(getUserTosByFirstNameAndLastName(FIRST_NAME, LAST_NAME), userDTOs);
     }
 
     @Test
@@ -136,16 +136,16 @@ class UserControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        UserTo actualUserTo = getToFromResult(result);
+        UserDTO actualUserDTO = getToFromResult(result);
 
-        user.setId(actualUserTo.getId());
-        user.setCreated(actualUserTo.getCreated());
-        UserTo expectedUserTo = UserUtil.convertToTo(user);
+        user.setId(actualUserDTO.getId());
+        user.setCreated(actualUserDTO.getCreated());
+        UserDTO expectedUserDTO = UserUtil.convertToTo(user);
 
-        assertEquals(expectedUserTo, actualUserTo);
-        List<UserTo> userTos = new ArrayList<>(USER_TOS);
-        userTos.add(expectedUserTo);
-        assertIterableEquals(userTos, service.getAll(null, null));
+        assertEquals(expectedUserDTO, actualUserDTO);
+        List<UserDTO> userDTOs = new ArrayList<>(USER_TOS);
+        userDTOs.add(expectedUserDTO);
+        assertIterableEquals(userDTOs, service.getAll(null, null));
     }
 
     @Test
@@ -168,14 +168,14 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        UserTo actualUserTo = getToFromResult(result);
+        UserDTO actualUserDTO = getToFromResult(result);
 
         user.setId(id);
-        user.setCreated(actualUserTo.getCreated());
-        user.setUpdated(actualUserTo.getUpdated());
-        UserTo expectedUserTo = UserUtil.convertToTo(user);
+        user.setCreated(actualUserDTO.getCreated());
+        user.setUpdated(actualUserDTO.getUpdated());
+        UserDTO expectedUserDTO = UserUtil.convertToTo(user);
 
-        assertEquals(expectedUserTo, actualUserTo);
+        assertEquals(expectedUserDTO, actualUserDTO);
     }
 
     @Test
@@ -204,9 +204,9 @@ class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        List<UserTo> userTos = new ArrayList<>(USER_TOS);
-        userTos.remove(--id);
-        assertIterableEquals(userTos, service.getAll(null, null));
+        List<UserDTO> userDTOs = new ArrayList<>(USER_TOS);
+        userDTOs.remove(--id);
+        assertIterableEquals(userDTOs, service.getAll(null, null));
     }
 
     @Test
@@ -216,12 +216,12 @@ class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    private UserTo getToFromResult(MvcResult result) throws IOException {
+    private UserDTO getToFromResult(MvcResult result) throws IOException {
         String content = result.getResponse().getContentAsString();
-        return objectMapper.readValue(content, UserTo.class);
+        return objectMapper.readValue(content, UserDTO.class);
     }
 
-    private List<UserTo> getListFromResult(MvcResult result) throws IOException {
+    private List<UserDTO> getListFromResult(MvcResult result) throws IOException {
         String content = result.getResponse().getContentAsString();
         return objectMapper.readValue(content, new TypeReference<>() {
         });

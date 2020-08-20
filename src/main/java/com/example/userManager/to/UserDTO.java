@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserTo {
+public class UserDTO {
     private Integer id;
     private String firstName;
     private String lastName;
@@ -18,7 +18,7 @@ public class UserTo {
     private LocalDateTime created;
     private LocalDateTime updated;
 
-    public UserTo(User user) {
+    public UserDTO(User user) {
         id = user.getId();
         firstName = user.getFirstName();
         lastName = user.getLastName();

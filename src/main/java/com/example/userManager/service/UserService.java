@@ -1,12 +1,12 @@
 package com.example.userManager.service;
 
 import com.example.userManager.dao.User;
-import com.example.userManager.to.UserTo;
+import com.example.userManager.to.UserDTO;
 
 public interface UserService {
-    Iterable<UserTo> getAll(String firstName, String lastName);
-    UserTo get(int id);
-    UserTo save(User user);
-    UserTo update(int id, User user);
+    Iterable<UserDTO> getAll(String firstName, String lastName);
+    UserDTO get(int id);
+    UserDTO save(User user);
+    UserDTO update(int id, User user);
     void delete(int id);
 }
