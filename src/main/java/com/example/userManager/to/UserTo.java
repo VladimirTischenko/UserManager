@@ -1,11 +1,15 @@
 package com.example.userManager.to;
 
 import com.example.userManager.dao.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserTo {
     private Integer id;
     private String firstName;

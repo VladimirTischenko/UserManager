@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
             users = repository.findByFirstNameAndLastName(firstName, lastName);
         }
 
-        return UserUtil.convertToTo(users);
+        return UserUtil.convertCollectionToTo(users);
     }
 
     @Override

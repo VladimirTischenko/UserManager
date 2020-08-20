@@ -11,7 +11,7 @@ public class UserUtil {
         return new UserTo(user);
     }
 
-    public static Iterable<UserTo> convertToTo(Iterable<User> users) {
+    public static Iterable<UserTo> convertCollectionToTo(Iterable<User> users) {
         List<UserTo> userTos = new ArrayList<>();
         for (User user : users) {
             userTos.add(convertToTo(user));
