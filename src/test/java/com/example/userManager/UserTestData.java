@@ -65,7 +65,7 @@ public class UserTestData {
     }
 
     public static User getNew() {
-        return new User(null, "newUserFN", "newUserLN", "d8578edf8458ce06fbc5bb76a58c5ca4",
+        return new User(null, "newUserFN", "newUserLN", "somePass",
                 false, null, null);
     }
 

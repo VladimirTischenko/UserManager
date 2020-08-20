@@ -149,9 +149,19 @@ class UserControllerTest {
     }
 
     @Test
-    public void testInvalidCreate() throws Exception {
+    public void testInvalidCreateWithId() throws Exception {
         User user = getNew();
         user.setId(USER_TO_10_ID);
+        this.mockMvc.perform(post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(getJson(user)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testInvalidCreateByEmptyFirstName() throws Exception {
+        User user = getNew();
+        user.setFirstName(" ");
         this.mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getJson(user)))
@@ -179,12 +189,22 @@ class UserControllerTest {
     }
 
     @Test
-    public void testInvalidUpdate() throws Exception {
+    public void testInvalidUpdateWithNotExistId() throws Exception {
         User user = getForUpdate();
         this.mockMvc.perform(put(REST_URL + USER_TO_10_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getJson(user)))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testInvalidUpdateByToShortPassword() throws Exception {
+        User user = getForUpdate();
+        user.setPassword("toShort");
+        this.mockMvc.perform(put(REST_URL + USER_TO_1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(getJson(user)))
+                .andExpect(status().isBadRequest());
     }
 
     @Test

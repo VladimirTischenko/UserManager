@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestBody User user) {
+    public ResponseEntity<Object> create(@Valid @RequestBody User user) {
         Integer id = user.getId();
         if (id != null) {
             return ResponseEntity.badRequest().body("id must be new (id = " + id + ")");
@@ -48,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserTo update(@PathVariable int id, @RequestBody User user) {
+    public UserTo update(@PathVariable int id, @Valid @RequestBody User user) {
         return service.update(id, user);
     }
 
