@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(User user) {
-        user.setCreated(LocalDateTime.now());
+        user.setCreated(nowWithNano0());
         user.setPassword(PasswordUtil.crypt(user.getPassword()));
         user = repository.save(user);
         return UserUtil.convertToTo(user);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         userFromDb.setLastName(updatedUser.getLastName());
         userFromDb.setPassword(PasswordUtil.crypt(updatedUser.getPassword()));
         userFromDb.setActive(updatedUser.isActive());
-        userFromDb.setUpdated(LocalDateTime.now());
+        userFromDb.setUpdated(nowWithNano0());
 
         repository.save(userFromDb);
         return UserUtil.convertToTo(userFromDb);
@@ -86,5 +86,9 @@ public class UserServiceImpl implements UserService {
         }
 
         return user;
+    }
+
+    private LocalDateTime nowWithNano0() {
+        return LocalDateTime.now().withNano(0);
     }
 }
